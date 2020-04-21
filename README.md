@@ -7,7 +7,7 @@ Purpose of this image is to create `docker-registry` type of kubernetes secret f
 
 to generate secret it uses:
   - aws cli to get password
-  - script to pare kubeconfig pass as variable
+  - script to parse kubeconfig pass as variable
   - kubectl to delete/create secret
 
 # Usage
