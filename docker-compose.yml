@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+
+  k8s-ecr-secret:
+    build:
+      context: ./
+    env_file:
+      - .env
