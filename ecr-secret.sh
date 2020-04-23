@@ -24,6 +24,13 @@ else
 	SECRET_NAME=${SECRET_NAME}
 fi
 
+if [ -z ${NS} ]; then
+	echo "No NAMESPACE provided. Using default"
+	NS=default
+else
+	NS=${NS}
+fi
+
 echo -e "\nSetting ecr secrets for values:\n"
 echo "ACCOUNT: ${ACCOUNT}"
 echo "REGION: ${REGION}"
@@ -38,11 +45,11 @@ DOCKER_PASSWORD=`aws ecr get-login-password --region ${REGION} 2>&1`  || {
 
 parse-kube-config.sh
 
-kubectl delete secret ${SECRET_NAME} || true
-kubectl create secret docker-registry ${SECRET_NAME} \
+kubectl -n ${NS} delete secret ${SECRET_NAME} || true
+kubectl -n ${NS} create secret docker-registry ${SECRET_NAME} \
 	--docker-server=$DOCKER_REGISTRY_SERVER \
 	--docker-username=$DOCKER_USER \
 	--docker-password=$DOCKER_PASSWORD \
 	--docker-email=no@email.local
-kubectl patch serviceaccount default -p '{"imagePullSecrets":[{"name":"${SECRET_NAME}"}]}'
+kubectl -n ${NS} patch serviceaccount default -p '{"imagePullSecrets":[{"name":"${SECRET_NAME}"}]}'
 

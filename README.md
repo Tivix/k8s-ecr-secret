@@ -6,9 +6,9 @@ k8s-ecr-secret
 Purpose of this image is to create `docker-registry` type of kubernetes secret for ECR based docker registry. Image can be use for initial secret creation or as part of cronJob as ECR tokens happens to invalidate themself after 12 hrs.
 
 to generate secret it uses:
-  - aws cli to get password
-  - script to parse kubeconfig pass as variable
-  - kubectl to delete/create secret
+    - aws cli to get password
+    - script to parse kubeconfig pass as variable
+    - kubectl to delete/create secret
 
 # Usage
 
@@ -30,5 +30,5 @@ where:
 
 **ACCOUNT** can be ommited if `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are provided
 
-**AWS_ACCESS_KEY_ID** and *AWS_SECRET_ACCESS_KEY* can be ommited if run on EC2 instance authorized to assume role with ECR access policy. In that case `ACCOUNT` has to be provided.
+**AWS_ACCESS_KEY_ID** and **AWS_SECRET_ACCESS_KEY** can be ommited if run on EC2 instance authorized to assume role with ECR access policy. In that case `ACCOUNT` has to be provided.
 
